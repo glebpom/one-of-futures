@@ -16,6 +16,14 @@ but suitable for more than two variants.
 It also exposes `impl_one_of!` macro, which allows generating custom `OneOf` type,
 with the desired number and names of variants
 
+## Usage
+
+Add this to your `Cargo.toml`:
+```toml
+[dependencies]
+one-of-futures = "0.1"
+```
+
 ## Example
 ```rust
 use one_of_futures::impl_one_of;
@@ -32,4 +40,3 @@ fn main() {
   };
 }
 ```
-

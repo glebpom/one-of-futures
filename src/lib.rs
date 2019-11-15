@@ -1,10 +1,19 @@
+#![doc(html_root_url = "https://docs.rs/one-of-futures/0.1.0")]
+#![warn(
+    missing_debug_implementations,
+    missing_docs,
+    rust_2018_idioms,
+    unreachable_pub
+)]
+#![deny(intra_doc_link_resolution_failure)]
+
 //! This crate implements several custom future-aware `OneOf` types, which behaves
 //! similarly to [`Either`](https://docs.rs/futures/0.3.1/futures/future/enum.Either.html) type,
 //! but suitable for more than two variants.
 //!
 //! It also exposes `impl_one_of!` macro, which allow to generate custom `OneOf` type,
 //! with the desired number and names of variants
-
+//! [`html_root_url`]: https://rust-lang-nursery.github.io/api-guidelines/documentation.html#crate-sets-html_root_url-attribute-c-html-root
 
 /// Macro to implement custom `OneOf` type.
 ///
@@ -195,5 +204,15 @@ mod tests {
             pin_mut!(one_of_7);
             assert_eq!(Poll::Ready(2), poll!(&mut one_of_7));
         });
+    }
+
+    #[test]
+    fn test_readme_deps() {
+        version_sync::assert_markdown_deps_updated!("README.md");
+    }
+
+    #[test]
+    fn test_html_root_url() {
+        version_sync::assert_html_root_url_updated!("src/lib.rs");
     }
 }
