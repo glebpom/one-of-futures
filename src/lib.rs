@@ -1,7 +1,6 @@
 #![doc(html_root_url = "https://docs.rs/one-of-futures/0.1.0")]
 #![warn(
     missing_debug_implementations,
-    missing_docs,
     rust_2018_idioms,
     unreachable_pub
 )]
