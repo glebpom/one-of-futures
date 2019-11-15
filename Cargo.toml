@@ -1,0 +1,17 @@
+[package]
+name = "one-of-futures"
+version = "0.1.0"
+authors = ["Gleb Pomykalov <glebpom@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+futures-core = "0.3.1"
+futures-sink = { version = "0.3.1", optional = true }
+
+[dev-dependencies]
+futures = { version = "0.3.0-alpha.19" }
+version-sync = "0.8"
+
+[features]
+default = ["sink"]
+sink = ["futures-sink"]
