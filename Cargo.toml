@@ -3,6 +3,13 @@ name = "one-of-futures"
 version = "0.1.0"
 authors = ["Gleb Pomykalov <glebpom@gmail.com>"]
 edition = "2018"
+description = "Future-aware Either-like type with multiple variants"
+keywords = ["async", "futures", "either"]
+categories = ["asynchronous"]
+license = "MIT"
+homepage = "https://github.com/glebpom/one-of-futures"
+repository = "https://github.com/glebpom/one-of-futures"
+readme = "README.md"
 
 [dependencies]
 futures-core = "0.3.1"
