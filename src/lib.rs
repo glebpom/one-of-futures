@@ -1,4 +1,4 @@
-#![doc(html_root_url = "https://docs.rs/one-of-futures/0.1.0")]
+#![doc(html_root_url = "https://docs.rs/one-of-futures/0.1.1")]
 #![warn(
     missing_debug_implementations,
     rust_2018_idioms,
