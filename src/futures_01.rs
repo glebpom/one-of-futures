@@ -68,7 +68,6 @@ macro_rules! impl_one_of_01 (
             }
         }
 
-        #[cfg(feature = "sink")]
         impl<$head_variant, $($tail_variants),*> ::futures_01::sink::Sink for
             $enum_name<$head_variant, $( $tail_variants ),*>
             where
@@ -111,7 +110,7 @@ impl_one_of_01!(OneOf2; One, Two);
 #[cfg(test)]
 mod tests {
     use futures_01::executor::spawn;
-    use futures_01::{Future, IntoFuture};
+    use futures_01::IntoFuture;
 
     use super::*;
 

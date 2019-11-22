@@ -13,7 +13,7 @@ repository = "https://github.com/glebpom/one-of-futures"
 readme = "README.md"
 
 [dependencies]
-futures-core = "0.3.1"
+futures-core = { version = "0.3.1", optional = true }
 futures-sink = { version = "0.3.1", optional = true }
 futures_01 = { version = "0.1", optional = true, package = "futures" }
 
@@ -23,4 +23,5 @@ version-sync = "0.8"
 
 [features]
 default = ["sink"]
-sink = ["futures-sink"]
+sink = ["futures-sink", "futures_03"]
+futures_03 = ["futures-core"]

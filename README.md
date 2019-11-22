@@ -16,7 +16,13 @@ but suitable for more than two variants.
 It also exposes `impl_one_of!` macro, which allows generating custom `OneOf` type,
 with the desired number and names of variants
 
-It also provides the same support for futures 0.1 if the `futures_01` future is enabled.
+### Features
+
+`futures_03` enables support for futures 0.3 (core/std), enabled by default
+
+`sink` enables support for futures 0.3 (core/std)'s `Sink`, enabled by default
+
+`futures_01` enables support for futures 0.1 under the futures_01 module
 
 ## Usage
 
