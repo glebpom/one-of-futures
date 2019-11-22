@@ -1,4 +1,4 @@
-#![doc(html_root_url = "https://docs.rs/one-of-futures/0.1.1")]
+#![doc(html_root_url = "https://docs.rs/one-of-futures/0.1.2")]
 #![warn(
     missing_debug_implementations,
     rust_2018_idioms,
@@ -169,6 +169,9 @@ macro_rules! impl_one_of (
         }
     }
 );
+
+#[cfg(feature = "futures_01")]
+pub mod futures_01;
 
 impl_one_of!(OneOf8; One, Two, Three, Four, Five, Six, Seven, Eight);
 impl_one_of!(OneOf7; One, Two, Three, Four, Five, Six, Seven);
