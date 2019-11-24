@@ -3,5 +3,5 @@ rust:
   - stable
   - beta
 script:
-  - cargo test --all-features
+  - cargo test --all
 

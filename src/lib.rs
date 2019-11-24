@@ -1,9 +1,5 @@
-#![doc(html_root_url = "https://docs.rs/one-of-futures/0.1.2")]
-#![warn(
-    missing_debug_implementations,
-    rust_2018_idioms,
-    unreachable_pub
-)]
+#![doc(html_root_url = "https://docs.rs/one-of-futures/0.1.3")]
+#![warn(missing_debug_implementations, rust_2018_idioms, unreachable_pub)]
 #![deny(intra_doc_link_resolution_failure)]
 
 //! This crate implements several custom future-aware `OneOf` types, which behaves
@@ -14,7 +10,7 @@
 //! with the desired number and names of variants
 //!
 //! # Features
-//! 
+//!
 //! `futures_03` enables support for futures 0.3 (core/std), enabled by default
 //!
 //! `sink` enables support fot futures 0.3 (core/std) 's `Sink`, enabled by default
@@ -30,6 +26,8 @@ pub mod futures_01;
 mod futures_03;
 #[cfg(feature = "futures_03")]
 pub use futures_03::*;
+#[cfg(feature = "futures_03")]
+pub use futures_core::{FusedFuture, FusedStream, Stream};
 
 #[cfg(test)]
 mod tests {

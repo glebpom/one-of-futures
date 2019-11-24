@@ -47,11 +47,11 @@ macro_rules! impl_one_of (
             }
         }
 
-        impl<$head_variant, $($tail_variants),*> ::futures_core::FusedFuture for
+        impl<$head_variant, $($tail_variants),*> $crate::FusedFuture for
             $enum_name<$head_variant, $($tail_variants ),*>
             where
-                $head_variant: ::futures_core::FusedFuture,
-                $( $tail_variants: ::futures_core::FusedFuture<Output=$head_variant::Output> ),* {
+                $head_variant: $crate::FusedFuture,
+                $( $tail_variants: $crate::FusedFuture<Output=$head_variant::Output> ),* {
 
             fn is_terminated(&self) -> bool {
                 match self {
@@ -63,11 +63,11 @@ macro_rules! impl_one_of (
             }
         }
 
-         impl<$head_variant, $($tail_variants),*> ::futures_core::Stream for
+         impl<$head_variant, $($tail_variants),*> $crate::Stream for
             $enum_name<$head_variant, $($tail_variants ),*>
             where
-                $head_variant: ::futures_core::Stream,
-                $( $tail_variants: ::futures_core::Stream<Item=$head_variant::Item> ),* {
+                $head_variant: $crate::Stream,
+                $( $tail_variants: $crate::Stream<Item=$head_variant::Item> ),* {
 
             type Item = $head_variant::Item;
 
@@ -83,11 +83,11 @@ macro_rules! impl_one_of (
             }
         }
 
-        impl<$head_variant, $($tail_variants),*> ::futures_core::FusedStream for
+        impl<$head_variant, $($tail_variants),*> $crate::FusedStream for
             $enum_name<$head_variant, $( $tail_variants ),*>
             where
-                $head_variant: ::futures_core::FusedStream,
-                $( $tail_variants: ::futures_core::FusedStream<Item=$head_variant::Item> ),* {
+                $head_variant: $crate::FusedStream,
+                $( $tail_variants: $crate::FusedStream<Item=$head_variant::Item> ),* {
 
             fn is_terminated(&self) -> bool {
                 match self {
@@ -161,31 +161,3 @@ impl_one_of!(OneOf5; One, Two, Three, Four, Five);
 impl_one_of!(OneOf4; One, Two, Three, Four);
 impl_one_of!(OneOf3; One, Two, Three);
 impl_one_of!(OneOf2; One, Two);
-
-#[cfg(test)]
-mod tests {
-    use core::task::Poll;
-
-    use futures::{pin_mut, poll};
-    use futures::executor::block_on;
-
-    use super::*;
-
-    #[test]
-    fn it_works_03() {
-        let one_of_7 = match 1 {
-            0 => OneOf7::One(async { 1 }),
-            1 => OneOf7::Two(async { 2 }),
-            2 => OneOf7::Three(async { 3 }),
-            3 => OneOf7::Four(async { 4 }),
-            4 => OneOf7::Five(async { 5 }),
-            6 => OneOf7::Six(async { 6 }),
-            _ => OneOf7::Seven(async { 7 }),
-        };
-
-        block_on(async {
-            pin_mut!(one_of_7);
-            assert_eq!(Poll::Ready(2), poll!(&mut one_of_7));
-        });
-    }
-}
