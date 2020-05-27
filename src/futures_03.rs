@@ -159,7 +159,7 @@ macro_rules! impl_one_of (
                 $head_variant: $crate::AsyncRead,
                 $( $tail_variants: $crate::AsyncRead ),* {
 
-            fn poll_read(self: ::core::pin::Pin<&mut Self>, cx: &mut ::core::task::Context<'_>, buf: &mut [u8]) -> ::core::task::Poll<tokio::io::Result<usize>> {
+            fn poll_read(self: ::core::pin::Pin<&mut Self>, cx: &mut ::core::task::Context<'_>, buf: &mut [u8]) -> ::core::task::Poll<::std::io::Result<usize>> {
                 unsafe {
                     match self.get_unchecked_mut() {
                         $enum_name::$head_variant(x) => ::core::pin::Pin::new_unchecked(x).poll_read(cx, buf),
@@ -186,7 +186,7 @@ macro_rules! impl_one_of (
             where
                 $head_variant: $crate::AsyncWrite,
                 $( $tail_variants: $crate::AsyncWrite ),* {
-            fn poll_write(self: ::core::pin::Pin<&mut Self>, cx: &mut ::core::task::Context<'_>, buf: &[u8]) -> ::core::task::Poll<tokio::io::Result<usize>> {
+            fn poll_write(self: ::core::pin::Pin<&mut Self>, cx: &mut ::core::task::Context<'_>, buf: &[u8]) -> ::core::task::Poll<::std::io::Result<usize>> {
                 unsafe {
                     match self.get_unchecked_mut() {
                         $enum_name::$head_variant(x) => ::core::pin::Pin::new_unchecked(x).poll_write(cx, buf),
@@ -197,7 +197,7 @@ macro_rules! impl_one_of (
                 }
             }
 
-            fn poll_flush(self: ::core::pin::Pin<&mut Self>, cx: &mut ::core::task::Context<'_>) -> ::core::task::Poll<tokio::io::Result<()>> {
+            fn poll_flush(self: ::core::pin::Pin<&mut Self>, cx: &mut ::core::task::Context<'_>) -> ::core::task::Poll<::std::io::Result<()>> {
                 unsafe {
                     match self.get_unchecked_mut() {
                         $enum_name::$head_variant(x) => ::core::pin::Pin::new_unchecked(x).poll_flush(cx),
@@ -208,7 +208,7 @@ macro_rules! impl_one_of (
                 }
             }
 
-            fn poll_shutdown(self: ::core::pin::Pin<&mut Self>, cx: &mut ::core::task::Context<'_>) -> ::core::task::Poll<tokio::io::Result<()>> {
+            fn poll_shutdown(self: ::core::pin::Pin<&mut Self>, cx: &mut ::core::task::Context<'_>) -> ::core::task::Poll<::std::io::Result<()>> {
                 unsafe {
                     match self.get_unchecked_mut() {
                         $enum_name::$head_variant(x) => ::core::pin::Pin::new_unchecked(x).poll_shutdown(cx),

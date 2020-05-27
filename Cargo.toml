@@ -28,7 +28,7 @@ default = ["sink"]
 sink = ["futures-sink", "futures_03"]
 futures_03 = ["futures-core"]
 futures_01 = ["futures-01"]
-tokio-io = ["tokio", "tokio/io-util"]
+tokio-io = ["tokio"]
 #tokio-io_01 = ["tokio-01"]
 
 [workspace]
