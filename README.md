@@ -22,6 +22,8 @@ with the desired number and names of variants
 
 `sink` enables support for futures 0.3 (core/std)'s `Sink`, enabled by default
 
+`tokio-io` enabled support for tokio 0.2's `AsyncRead` and `AsyncWrite`
+
 `futures_01` enables support for futures 0.1 under the futures_01 module
 
 ## Usage
