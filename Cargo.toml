@@ -17,7 +17,6 @@ futures-core = { version = "0.3.1", optional = true }
 futures-sink = { version = "0.3.1", optional = true }
 futures-01 = { version = "0.1", optional = true, package = "futures" }
 tokio = { version = "0.2", optional = true }
-#tokio-01 = { version = "0.1", optional = true, package = "tokio" }
 
 [dev-dependencies]
 futures = { version = "0.3.1" }
@@ -29,7 +28,6 @@ sink = ["futures-sink", "futures_03"]
 futures_03 = ["futures-core"]
 futures_01 = ["futures-01"]
 tokio-io = ["tokio"]
-#tokio-io_01 = ["tokio-01"]
 
 [workspace]
 members = [
