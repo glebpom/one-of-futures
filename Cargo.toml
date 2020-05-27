@@ -8,7 +8,7 @@ keywords = ["async", "futures", "either"]
 categories = ["asynchronous"]
 license = "MIT"
 homepage = "https://github.com/glebpom/one-of-futures"
-documentation = "https://docs.rs/one-of-futures/0.1.2/one-of-futures/"
+documentation = "https://docs.rs/one-of-futures/0.1.3/one-of-futures/"
 repository = "https://github.com/glebpom/one-of-futures"
 readme = "README.md"
 

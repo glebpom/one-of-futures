@@ -1,5 +1,5 @@
 [package]
-name = "example-future-03"
+name = "test-futures-03"
 version = "0.1.0"
 authors = ["Gleb Pomykalov <gleb@lancastr.com>"]
 edition = "2018"
