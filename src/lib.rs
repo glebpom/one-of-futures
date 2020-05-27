@@ -29,6 +29,12 @@ pub use futures_03::*;
 #[cfg(feature = "futures_03")]
 pub use futures_core::{FusedFuture, FusedStream, Stream};
 
+#[cfg(feature = "sink")]
+pub use futures_sink::Sink;
+
+#[cfg(feature = "tokio")]
+pub use tokio::io::{AsyncRead, AsyncWrite};
+
 #[cfg(test)]
 mod tests {
     #[test]

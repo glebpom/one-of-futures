@@ -1,4 +1,4 @@
-use one_of_futures::{impl_one_of, OneOf7};
+use one_of_futures::{impl_one_of, OneOf2, OneOf7};
 
 impl_one_of!(MyEither;
   Left,
@@ -17,6 +17,8 @@ mod tests {
     use core::task::Poll;
     use futures::executor::block_on;
     use futures::{pin_mut, poll};
+    use one_of_futures::{AsyncRead, AsyncWrite};
+    use std::io::Cursor;
 
     use super::*;
 
@@ -36,5 +38,23 @@ mod tests {
             pin_mut!(one_of_7);
             assert_eq!(Poll::Ready(2), poll!(&mut one_of_7));
         });
+    }
+
+    fn only_accepts_asyncread(_: impl AsyncRead) {}
+
+    fn only_accepts_asyncwrite(_: impl AsyncWrite) {}
+
+    #[test]
+    fn it_work_03_io() {
+        let read_cursor = Cursor::new(vec![0u8, 1, 2]);
+        let write_cursor = Cursor::new(vec![9u8, 8, 7]);
+
+        let one_of_2 = match 1 {
+            1 => OneOf2::One(read_cursor),
+            _ => OneOf2::Two(write_cursor),
+        };
+
+        only_accepts_asyncread(one_of_2.clone());
+        only_accepts_asyncwrite(one_of_2);
     }
 }

@@ -100,11 +100,11 @@ macro_rules! impl_one_of (
         }
 
         #[cfg(feature = "sink")]
-        impl<Item, $head_variant, $($tail_variants),*> futures_sink::Sink<Item> for
+        impl<Item, $head_variant, $($tail_variants),*> $crate::Sink<Item> for
             $enum_name<$head_variant, $( $tail_variants ),*>
             where
-                $head_variant: futures_sink::Sink<Item>,
-                $( $tail_variants: futures_sink::Sink<Item, Error=$head_variant::Error> ),* {
+                $head_variant: $crate::Sink<Item>,
+                $( $tail_variants: $crate::Sink<Item, Error=$head_variant::Error> ),* {
             type Error = $head_variant::Error;
 
             fn poll_ready(self: ::core::pin::Pin<&mut Self>, cx: &mut ::core::task::Context<'_>) ->::core::task::Poll<Result<(), Self::Error>> {
@@ -146,6 +146,74 @@ macro_rules! impl_one_of (
                         $enum_name::$head_variant(x) => ::core::pin::Pin::new_unchecked(x).poll_close(cx),
                         $(
                             $enum_name::$tail_variants(x) => ::core::pin::Pin::new_unchecked(x).poll_close(cx),
+                        )*
+                    }
+                }
+            }
+        }
+
+        #[cfg(feature = "tokio")]
+        impl<$head_variant, $($tail_variants), *> $crate::AsyncRead for
+            $enum_name<$head_variant, $( $tail_variants),*>
+            where
+                $head_variant: $crate::AsyncRead,
+                $( $tail_variants: $crate::AsyncRead ),* {
+
+            fn poll_read(self: ::core::pin::Pin<&mut Self>, cx: &mut ::core::task::Context<'_>, buf: &mut [u8]) -> ::core::task::Poll<::std::io::Result<usize>> {
+                unsafe {
+                    match self.get_unchecked_mut() {
+                        $enum_name::$head_variant(x) => ::core::pin::Pin::new_unchecked(x).poll_read(cx, buf),
+                        $(
+                            $enum_name::$tail_variants(x) => ::core::pin::Pin::new_unchecked(x).poll_read(cx, buf),
+                        )*
+                    }
+                }
+            }
+
+            unsafe fn prepare_uninitialized_buffer(&self, buf: &mut [::core::mem::MaybeUninit<u8>]) -> bool {
+                match self {
+                    $enum_name::$head_variant(x) => x.prepare_uninitialized_buffer(buf),
+                    $(
+                        $enum_name::$tail_variants(x) => x.prepare_uninitialized_buffer(buf),
+                    )*
+                }
+            }
+        }
+
+        #[cfg(feature = "tokio")]
+        impl<$head_variant, $($tail_variants), *> $crate::AsyncWrite for
+            $enum_name<$head_variant, $( $tail_variants),*>
+            where
+                $head_variant: $crate::AsyncWrite,
+                $( $tail_variants: $crate::AsyncWrite ),* {
+            fn poll_write(self: ::core::pin::Pin<&mut Self>, cx: &mut ::core::task::Context<'_>, buf: &[u8]) -> ::core::task::Poll<::std::io::Result<usize>> {
+                unsafe {
+                    match self.get_unchecked_mut() {
+                        $enum_name::$head_variant(x) => ::core::pin::Pin::new_unchecked(x).poll_write(cx, buf),
+                        $(
+                            $enum_name::$tail_variants(x) => ::core::pin::Pin::new_unchecked(x).poll_write(cx, buf),
+                        )*
+                    }
+                }
+            }
+
+            fn poll_flush(self: ::core::pin::Pin<&mut Self>, cx: &mut ::core::task::Context<'_>) -> ::core::task::Poll<::std::io::Result<()>> {
+                unsafe {
+                    match self.get_unchecked_mut() {
+                        $enum_name::$head_variant(x) => ::core::pin::Pin::new_unchecked(x).poll_flush(cx),
+                        $(
+                            $enum_name::$tail_variants(x) => ::core::pin::Pin::new_unchecked(x).poll_flush(cx),
+                        )*
+                    }
+                }
+            }
+
+            fn poll_shutdown(self: ::core::pin::Pin<&mut Self>, cx: &mut ::core::task::Context<'_>) -> ::core::task::Poll<::std::io::Result<()>> {
+                unsafe {
+                    match self.get_unchecked_mut() {
+                        $enum_name::$head_variant(x) => ::core::pin::Pin::new_unchecked(x).poll_shutdown(cx),
+                        $(
+                            $enum_name::$tail_variants(x) => ::core::pin::Pin::new_unchecked(x).poll_shutdown(cx),
                         )*
                     }
                 }
