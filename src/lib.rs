@@ -1,4 +1,4 @@
-#![doc(html_root_url = "https://docs.rs/one-of-futures/0.1.3")]
+#![doc(html_root_url = "https://docs.rs/one-of-futures/0.1.4")]
 #![warn(missing_debug_implementations, rust_2018_idioms, unreachable_pub)]
 #![deny(intra_doc_link_resolution_failure)]
 
